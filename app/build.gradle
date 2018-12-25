@@ -1,0 +1,37 @@
+apply plugin: 'com.android.application'
+apply plugin: 'include-api'
+apply plugin: 'kotlin-android'
+
+def debugKey = file('debug.jks')
+
+android {
+  compileSdkVersion deps.build.compileSdkVersion
+
+  defaultConfig {
+    applicationId "io.letusplay.plugin"
+    minSdkVersion deps.build.minSdkVersion
+    targetSdkVersion deps.build.targetSdkVersion
+    versionCode 1
+    versionName "1.0"
+  }
+
+  signingConfigs {
+    debug {
+      storeFile debugKey
+      storePassword '123456'
+      keyAlias 'debugKey'
+      keyPassword '123456'
+    }
+  }
+}
+
+dependencies {
+  implementation deps.androidx.appcompat
+  implementation deps.androidx.constraintLayout
+  implementation deps.kotlin.stdLibJdk7
+
+  testImplementation 'junit:junit:4.12'
+  api project(':plugin-account')
+  api project(':plugin-login')
+  api project(':plugin-timeline')
+}

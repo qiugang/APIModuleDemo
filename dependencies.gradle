@@ -1,0 +1,83 @@
+/*
+ * Copyright 2018 qiugang(thisisqg@gmail.com)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+def versions = [
+    kotlin: "1.2.71",
+    support: "1.0.2",
+    room: "2.1.0-alpha02",
+    work: "1.0.0-alpha10",
+    recyclerView: '1.0.0',
+    lifecycle: '2.0.0',
+    minSdk: 23,
+    tartgetSdk: 26,
+    compileSdk: 28
+]
+
+def build = [
+    androidPlugin: "com.android.tools.build:gradle:3.2.0",
+    buildToolsVersion: "28.0.2",
+    compileSdkVersion: 28,
+    googleJavaFormatter: "com.google.googlejavaformat:google-java-format:1.4",
+    gradleAptPlugin: "net.ltgt.gradle:gradle-apt-plugin:0.18",
+    gradlePluginsUrl: "https://plugins.gradle.org/m2/",
+    minSdkVersion: 23,
+    targetSdkVersion: 28
+]
+
+def kotlin = [
+    gradlePlugin: "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}",
+    stdLib: "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}",
+    stdLibJdk7: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}",
+    stdLibJdk8: "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}",
+]
+
+def androidx = [
+    appcompat: "androidx.appcompat:appcompat:${versions.support}",
+    recyclerView: "androidx.recyclerview:recyclerview:${versions.recyclerView}",
+    lifecycleExt: "androidx.lifecycle:lifecycle-extensions:${versions.lifecycle}",
+    livedata: "androidx.lifecycle:lifecycle-livedata:${versions.lifecycle}",
+    constraintLayout: "androidx.constraintlayout:constraintlayout:1.1.2",
+]
+
+def test = [
+    runner: "com.android.support.test:runner:1.0.2",
+    junit: "junit:junit:4.12",
+    espresso: "com.android.support.test.espresso:espresso-core:3.0.2"
+]
+
+def third = [
+    mkkv: "com.tencent:mmkv:1.0.10",
+    glide: "com.github.bumptech.glide:glide:4.7.1",
+    rxpermission: "com.tbruyelle.rxpermissions:rxpermissions:0.9.4@aar",
+    retrofit: "com.squareup.retrofit2:retrofit:2.4.0",
+    okhttpLog: "com.squareup.okhttp3:logging-interceptor:3.10.0",
+    retrofitGsonConverter: "com.squareup.retrofit2:converter-gson:2.4.0",
+    retrofitAdapter: "com.squareup.retrofit2:adapter-rxjava2:2.4.0",
+    rxjava2: "io.reactivex.rxjava2:rxjava:2.2.0",
+    rxandroid2: "io.reactivex.rxjava2:rxandroid:2.1.0",
+    rxjava: "io.reactivex:rxjava:1.3.8",
+    rxandroid: "io.reactivex:rxandroid:1.2.1",
+    lottie: "com.airbnb.android:lottie:2.1.0"
+]
+
+ext.deps = [
+    "build": build,
+    "kotlin": kotlin,
+    "androidx": androidx,
+    "versions": versions,
+    "test": test,
+    "third": third
+]

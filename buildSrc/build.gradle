@@ -1,0 +1,10 @@
+repositories {
+    google()
+    jcenter()
+}
+
+apply from: file('common.gradle')
+
+allDependencies.each {
+    dependencies.add('implementation', it)
+}

@@ -1,0 +1,13 @@
+apply plugin: 'groovy'
+
+compileGroovy {
+    sourceCompatibility = "1.7"
+    targetCompatibility = "1.7"
+    options.encoding = "UTF-8"
+}
+
+ext.allDependencies = [
+        dependencies.gradleApi(),
+        dependencies.localGroovy(),
+        "com.android.tools.build:gradle:3.2.0"
+]

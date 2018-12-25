@@ -1,0 +1,23 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="io.letusplay.demo.plugin.timeline">
+
+  <uses-permission android:name="android.permission.INTERNET"/>
+
+  <application>
+
+    <activity
+        android:name="io.letusplay.demo.plugin.timeline.ui.TimelineHostActivity"
+        android:configChanges="orientation|screenSize"
+        android:launchMode="singleTop">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data
+            android:host="timeline"
+            android:scheme="hubhub"/>
+      </intent-filter>
+    </activity>
+  </application>
+</manifest>

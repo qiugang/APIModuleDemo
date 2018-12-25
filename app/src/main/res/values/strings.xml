@@ -1,0 +1,4 @@
+<resources>
+  <string name="app_name">Api Module Demo</string>
+  <string name="app_logout">logout</string>
+</resources>

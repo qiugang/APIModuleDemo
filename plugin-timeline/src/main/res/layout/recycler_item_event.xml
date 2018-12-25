@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingEnd="16dp"
+    android:paddingStart="16dp"
+    >
+
+  <ImageView
+      android:id="@+id/avatar"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      android:layout_marginBottom="16dp"
+      android:layout_marginTop="16dp"
+      android:background="#dedede"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <TextView
+      android:id="@+id/nickname"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      android:textColor="#222222"
+      android:textSize="16sp"
+      app:layout_constraintStart_toEndOf="@id/avatar"
+      app:layout_constraintTop_toTopOf="@id/avatar"
+      tools:text="nickname"
+      />
+
+  <TextView
+      android:id="@+id/actionDesc"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:singleLine="true"
+      android:textColor="#666666"
+      android:textSize="14sp"
+      app:layout_constraintBottom_toBottomOf="@id/avatar"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="@id/nickname"
+      tools:text="starred uber/artist"
+      />
+
+  <TextView
+      android:id="@+id/eventTime"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:paddingBottom="4dp"
+      android:paddingTop="4dp"
+      android:textColor="#666666"
+      android:textSize="12sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="@id/nickname"
+      tools:text="6 minutes ago"
+      />
+
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="0.5dp"
+      android:background="#dedede"
+      app:layout_constraintBottom_toBottomOf="parent"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

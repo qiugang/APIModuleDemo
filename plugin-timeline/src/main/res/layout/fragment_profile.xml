@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp"
+    tools:ignore="ContentDescription">
+
+    <ImageView
+        android:id="@+id/avatar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@android:color/background_dark" />
+
+    <TextView
+        android:id="@+id/nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="#333"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@id/avatar"
+        tools:text="waylife" />
+
+    <TextView
+        android:id="@+id/eventTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/nickname"
+        app:layout_constraintTop_toBottomOf="@id/nickname"
+        tools:text="Member since 6 minutes ago" />
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="qiugang.github.io"
+        app:layout_constraintStart_toStartOf="@id/eventTime"
+        app:layout_constraintTop_toBottomOf="@id/eventTime" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="#f3f3f3"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/email">
+
+        <TextView
+            android:id="@+id/stars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#333"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/followers"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="1233" />
+
+        <TextView
+            android:id="@+id/followers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#333"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/following"
+            app:layout_constraintStart_toEndOf="@id/stars"
+            tools:text="4456" />
+
+        <TextView
+            android:id="@+id/following"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#333"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/followers"
+            app:layout_constraintStart_toEndOf="parent"
+            tools:text="34" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stars"
+            app:layout_constraintEnd_toEndOf="@id/stars"
+            app:layout_constraintStart_toStartOf="@id/stars"
+            app:layout_constraintTop_toBottomOf="@id/stars" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Followers"
+            app:layout_constraintEnd_toEndOf="@id/followers"
+            app:layout_constraintStart_toStartOf="@id/followers"
+            app:layout_constraintTop_toBottomOf="@id/followers" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Following"
+            app:layout_constraintEnd_toEndOf="@id/following"
+            app:layout_constraintStart_toStartOf="@id/following"
+            app:layout_constraintTop_toBottomOf="@id/following" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="wait more..."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

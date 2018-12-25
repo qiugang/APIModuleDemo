@@ -1,0 +1,21 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'include-api'
+
+android {
+  compileSdkVersion deps.build.compileSdkVersion
+
+  defaultConfig {
+    minSdkVersion deps.build.minSdkVersion
+    targetSdkVersion deps.build.targetSdkVersion
+    versionCode 1
+    versionName "1.0"
+  }
+}
+
+dependencies {
+  includeApi(':plugin-account')
+  implementation project(':plugin-base')
+  implementation deps.kotlin.stdLibJdk7
+  compileOnly "org.jetbrains.kotlin:kotlin-scripting-jvm:1.2.71"
+}

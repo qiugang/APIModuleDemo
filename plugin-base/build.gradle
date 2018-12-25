@@ -1,0 +1,30 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+  compileSdkVersion deps.build.compileSdkVersion
+
+  defaultConfig {
+    minSdkVersion deps.build.minSdkVersion
+    targetSdkVersion deps.build.targetSdkVersion
+    versionCode 1
+    versionName "1.0"
+  }
+}
+
+dependencies {
+  implementation deps.kotlin.stdLibJdk7
+
+  api deps.third.mkkv
+  api deps.third.rxjava2
+  api deps.third.rxandroid2
+  api deps.third.retrofit
+  api deps.third.retrofitAdapter
+  api deps.third.retrofitGsonConverter
+  api deps.third.okhttpLog
+
+  //android x
+  api deps.androidx.appcompat
+  api deps.androidx.lifecycleExt
+}

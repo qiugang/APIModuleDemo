@@ -1,0 +1,22 @@
+apply from: file('common.gradle')
+
+allDependencies.each {
+    dependencies.add('compileOnly', it)
+}
+
+
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'com.github.letusplay'
+archivesBaseName = 'IncludeAPIPlugin'
+libsDirName = 'output'
+
+// build a jar with source files
+task sourcesJar(type: Jar) {
+    from sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+artifacts {
+    archives sourcesJar
+}
