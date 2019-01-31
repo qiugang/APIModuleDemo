@@ -1,17 +1,7 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-
-android {
-  compileSdkVersion deps.build.compileSdkVersion
-
-  defaultConfig {
-    minSdkVersion deps.build.minSdkVersion
-    targetSdkVersion deps.build.targetSdkVersion
-    versionCode 1
-    versionName "1.0"
-  }
-}
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
 
 dependencies {
+  api deps.androidx.appcompat
   implementation deps.kotlin.stdLibJdk7
 }

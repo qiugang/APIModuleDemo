@@ -15,7 +15,7 @@
  */
 
 
-def include_with_api(String moduleName) {
+def includeWithApi(String moduleName) {
 
   include(moduleName)
 
@@ -34,7 +34,7 @@ def include_with_api(String moduleName) {
     exclude '**/res/'
     include '**/*.japi'
     include '**/*.kapi'
-    include '**/AndroidManifest.xml'
+//    include '**/AndroidManifest.xml'
     include 'sdk.gradle'
   }
 
@@ -75,8 +75,8 @@ include ':plugin-base'
 include ':plugin-login'
 include ':plugin-timeline'
 include ':buildSrc'
-include_with_api(':plugin-account')
-include_with_api(':plugin-timeline')
+includeWithApi(':plugin-account')
+includeWithApi(':plugin-timeline')
 
 project(':buildSrc').buildFileName = 'buildSrc.gradle'
 

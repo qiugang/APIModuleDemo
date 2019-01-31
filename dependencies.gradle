@@ -50,6 +50,7 @@ def androidx = [
     lifecycleExt: "androidx.lifecycle:lifecycle-extensions:${versions.lifecycle}",
     livedata: "androidx.lifecycle:lifecycle-livedata:${versions.lifecycle}",
     constraintLayout: "androidx.constraintlayout:constraintlayout:1.1.2",
+    fragment: "androidx.fragment:fragment:1.0.0"
 ]
 
 def test = [

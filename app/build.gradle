@@ -34,4 +34,6 @@ dependencies {
   api project(':plugin-account')
   api project(':plugin-login')
   api project(':plugin-timeline')
+
+  implementation 'com.android.support:multidex:1.0.3'
 }

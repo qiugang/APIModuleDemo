@@ -10,7 +10,7 @@
 
 微信在[微信Android模块化架构重构实践](https://mp.weixin.qq.com/s/6Q818XA5FaHd7jJMFBG60w)分享中提及的模块 api 化是非常棒的思路，模块公共代码的维护还是在所属模块内，大大提升开发体验。这个 demo 由此而来。
 
-### demo
+### Demo
 
 * ```plugin-xxx``` 的 module 均为业务 module，
 * ```plugin-xxx-api``` 均为对应业务自动生成的 api module
@@ -37,6 +37,10 @@ dependencies {
 ps: demo 以 Github V3 API 为例，module 划分仅为演示。另外 build demo 之前请前往 [Github Developers](https://github.com/settings/developers) 新建应用获取 ```Client ID``` 与 ``` Client Secret ```，之后配置到 ```plugin-login``` 的 ```build.gradle``` 中
 
 详细可以查看 example~
+
+### Todo
+
+- [] 支持 api module 为 Android Library
 
 ### License
 

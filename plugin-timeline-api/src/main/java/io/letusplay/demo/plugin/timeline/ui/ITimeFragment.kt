@@ -16,6 +16,5 @@
 
 package io.letusplay.demo.plugin.timeline.ui
 
-import androidx.fragment.app.Fragment
 
-abstract class ITimeFragment : Fragment()
+interface ITimeFragment

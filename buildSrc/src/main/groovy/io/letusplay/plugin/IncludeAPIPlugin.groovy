@@ -21,7 +21,6 @@ class IncludeAPIPlugin implements Plugin<Project> {
         dep ->
           String targetName = "${dep.name}-api"
           if (!apiSdks.contains(targetName)) {
-            println("include api module: $targetName")
             project.dependencies.add("api", project.getRootProject().project(targetName))
             apiSdks.add(targetName)
           }

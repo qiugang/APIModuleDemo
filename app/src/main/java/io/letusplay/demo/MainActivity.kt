@@ -22,6 +22,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import io.letusplay.demo.base.Bumblebee
 import io.letusplay.demo.plugin.account.IAccount
 import io.letusplay.demo.plugin.timeline.ITimelineFragFactory
@@ -48,7 +49,7 @@ class MainActivity : AppCompatActivity() {
           ?.newTimelineFrag()
       timelineFragment?.run {
         supportFragmentManager.beginTransaction()
-            .add(R.id.contentHolder, this)
+            .add(R.id.contentHolder, this as Fragment)
             .commitNow()
       }
     } else {

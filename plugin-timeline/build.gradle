@@ -22,6 +22,7 @@ android {
 }
 
 dependencies {
+  compileOnly "org.jetbrains.kotlin:kotlin-scripting-jvm:1.2.71"
   api deps.androidx.appcompat
   api deps.androidx.recyclerView
   api deps.androidx.constraintLayout
