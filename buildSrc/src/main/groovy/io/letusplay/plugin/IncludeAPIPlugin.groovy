@@ -28,21 +28,12 @@ class IncludeAPIPlugin implements Plugin<Project> {
 
       // 2. 在编译前将module里的api文件还原为java/kt，编译后删除
       if (project.plugins.hasPlugin("com.android.application")) {
-        copyedFiles.clear()
+        copyFiles.clear()
         project.parent.allprojects { Project p ->
           p.fileTree(p.projectDir).include("**/*api")?.each { File file ->
             println("find .api in ${p.name}: ${file}")
-            if (file.name.endsWith(".japi")) {
-              def dest = new File(file.absolutePath.replace(".japi", ".java"))
-              if (dest.exists()) dest.delete()
-              dest << file.text
-              copyFiles.add(dest)
-            } else if (file.name.endsWith(".kapi")) {
-              def dest = new File(file.absolutePath.replace(".kapi", ".kt"))
-              if (dest.exists()) dest.delete()
-              dest << file.text
-              copyFiles.add(dest)
-            }
+            copyAndCollectFiles(file, ".japi", ".java", copyFiles)
+            copyAndCollectFiles(file, ".kapi", ".kt", copyFiles)
           }
         }
         project.parent.gradle.buildFinished {
@@ -62,6 +53,15 @@ class IncludeAPIPlugin implements Plugin<Project> {
             apiSdks.add(targetName)
           }
       }
+    }
+  }
+
+  private static void copyAndCollectFiles(File file, origin, target, List collections) {
+    if (file.name.endsWith(origin)) {
+      def dest = new File(file.absolutePath.replace(origin, target))
+      if (dest.exists()) dest.delete()
+      dest << file.text
+      collections.add(dest)
     }
   }
 }
