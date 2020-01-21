@@ -14,7 +14,7 @@ android {
 }
 
 dependencies {
-  includeApi(':plugin-account')
+  // includeApi(':plugin-account')
   implementation project(':plugin-base')
   implementation deps.kotlin.stdLibJdk7
   compileOnly "org.jetbrains.kotlin:kotlin-scripting-jvm:1.2.71"
