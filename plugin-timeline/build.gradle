@@ -28,7 +28,7 @@ dependencies {
   api deps.androidx.constraintLayout
   api project(':plugin-base')
   includeApi(':plugin-account')
-  includeApi(':plugin-timeline')
+  // includeApi(':plugin-timeline')
   implementation deps.kotlin.stdLibJdk7
   implementation 'me.drakeet.multitype:multitype:3.5.0'
   implementation 'com.squareup.picasso:picasso:2.71828'
