@@ -17,8 +17,8 @@
 package io.letusplay.demo.plugin.account
 
 data class UserProfile(
-  var id: Int = 0,
-  var name: String = "",
+  var id: Int = R.color.color_white_1,
+  var name: String = BuildConfig.VERSION_NAME,
   var login: String = ""
 )
 

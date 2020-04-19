@@ -1,0 +1,144 @@
+import java.lang.reflect.Field
+
+/*
+ * Copyright 2018 qiugang(thisisqg@gmail.com)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+{ it ->
+    // AAPT无法编译未知后缀的文件，因此需要排除*.api的资源文件
+    // @see DataSet.sIgnoredPatterns && FileResourceNameValidator.getErrorTextForFileResource
+    // 过滤规则取自系统环境变量，由于无法修改（https://stackoverflow.com/a/11758296），所以采取反射变量缓存对象手动插入
+    Class ProcessEnvironment = Class.forName("java.lang.ProcessEnvironment")
+    Field theUnmodifiableEnvironment = ProcessEnvironment.getDeclaredField("theUnmodifiableEnvironment")
+    theUnmodifiableEnvironment.setAccessible(true)
+    Map map = theUnmodifiableEnvironment.get(ProcessEnvironment)
+
+    Field m = map.getClass().getDeclaredField("m")
+    m.setAccessible(true)
+    Map realMap = m.get(map)
+    realMap.put("ANDROID_AAPT_IGNORE", "!*.api:!.svn:!.git:!.ds_store:!*.scc:.*:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~")
+    println System.getenv("ANDROID_AAPT_IGNORE")
+}()
+
+gradle.taskGraph.whenReady {
+    gradle.rootProject.allprojects.forEach { Project p ->
+        if (p.name.endsWith("-api") && p.plugins.hasPlugin("com.android.library")) {
+            Set<String> packageNames = new HashSet()
+            p.plugins.getPlugin("com.android.library").variantManager.variantScopes.forEach {
+                packageNames.add(it.variantData.variantConfiguration.originalApplicationId)
+            }
+            // 由于moduleA-api与moduleA的package相同，因此在同一个dex时会产生BuildConfig冲突
+            // 解决方案是在compileJavaWithJavac结束后直接移除module-api中BuildConfig的class
+            p.tasks.findAll {
+                it.name.startsWith("compile") && it.name.endsWith("JavaWithJavac")
+            }.forEach { task ->
+                task.doLast {
+                    packageNames.forEach { name ->
+                        new File(it.destinationDir, name.replaceAll("\\.", "/") + "/BuildConfig.class").delete()
+                    }
+                }
+            }
+        }
+    }
+}
+
+gradle.projectsLoaded {
+    gradle.rootProject.allprojects.forEach { Project p ->
+        List<String> apiSdks = new ArrayList<>()
+        Configuration configurations = p.configurations.create("includeApi")
+        configurations.canBeResolved = true
+        configurations.canBeConsumed = true
+        configurations.visible = true
+        configurations.allDependencies.all { dep ->
+            String targetName = "${dep.name}-api"
+            if (!apiSdks.contains(targetName)) {
+                p.dependencies.add("api", gradle.rootProject.project(targetName))
+                apiSdks.add(targetName)
+            }
+        }
+    }
+    // 对于存在api的module，需要依赖自己导出的module-api以引入缺失的源文件
+    gradle.rootProject.allprojects.forEach { Project p ->
+        p.afterEvaluate {
+            def apiProject = gradle.rootProject.allprojects.find {
+                it.name.endsWith("${p.name}-api")
+            }
+            if (apiProject != null) {
+                p.dependencies.add("api", apiProject)
+            }
+        }
+    }
+
+
+}
+
+ext.includeWithApi = { String moduleName ->
+
+    include(moduleName)
+
+    String originDir = project(moduleName).projectDir
+    String targetDir = "${originDir}-api"
+    def sdkName = "${project(moduleName).name}-api"
+
+    // delete exits
+    deleteDir(targetDir)
+
+    // execute copy task
+    copy() {
+        from originDir
+        into targetDir
+        exclude '**/build/'
+//    exclude '**/res/'
+        include '**/*.api'
+
+        include '**/*.japi'
+        include '**/*.kapi'
+        include '**/AndroidManifest.xml'
+        include 'sdk.gradle'
+    }
+
+    // replace build.gradle
+    def build = new File(targetDir + "/sdk.gradle")
+    if (build.exists()) {
+        build.renameTo(new File(targetDir + "/build.gradle"))
+    }
+
+    // replace api file
+    renameApiFiles(targetDir, '.japi', '.java')
+    renameApiFiles(targetDir, '.kapi', '.kt')
+    renameApiFiles(targetDir, '.api', '')
+
+    include ":$sdkName"
+}
+
+private void deleteDir(String targetDir) {
+    FileTree targetFiles = fileTree(targetDir)
+    targetFiles.exclude "*.iml"
+    targetFiles.each { File file ->
+        file.delete()
+    }
+}
+
+/**
+ * rename api files(java, kotlin...)
+ */
+private def renameApiFiles(root_dir, String suffix, String replace) {
+    FileTree files = fileTree(root_dir).include("**/*$suffix")
+    files.each {
+        File file ->
+            file.renameTo(new File(file.absolutePath.replace(suffix, replace)))
+    }
+}
+
