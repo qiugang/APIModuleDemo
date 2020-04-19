@@ -13,62 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+apply from: file('enableApi.gradle')
 
 
-def includeWithApi(String moduleName) {
-
-  include(moduleName)
-
-  String originDir = project(moduleName).projectDir
-  String targetDir = "${originDir}-api"
-  def sdkName = "${project(moduleName).name}-api"
-
-  // delete exits
-  deleteDir(targetDir)
-
-  // execute copy task
-  copy() {
-    from originDir
-    into targetDir
-    exclude '**/build/'
-    exclude '**/res/'
-    include '**/*.japi'
-    include '**/*.kapi'
-//    include '**/AndroidManifest.xml'
-    include 'sdk.gradle'
-  }
-
-  // replace build.gradle
-  def build = new File(targetDir + "/sdk.gradle")
-  if (build.exists()) {
-    build.renameTo(new File(targetDir + "/build.gradle"))
-  }
-
-  // replace api file
-  renameApiFiles(targetDir, '.japi', '.java')
-  renameApiFiles(targetDir, '.kapi', '.kt')
-
-  include ":$sdkName"
-}
-
-private void deleteDir(String targetDir) {
-  FileTree targetFiles = fileTree(targetDir)
-  targetFiles.exclude "*.iml"
-  targetFiles.each { File file ->
-    file.delete()
-  }
-}
-
-/**
- * rename api files(java, kotlin...)
- */
-private def renameApiFiles(root_dir, String suffix, String replace) {
-  FileTree files = fileTree(root_dir).include("**/*$suffix")
-  files.each {
-    File file ->
-      file.renameTo(new File(file.absolutePath.replace(suffix, replace)))
-  }
-}
 
 include ':app'
 include ':plugin-base'
